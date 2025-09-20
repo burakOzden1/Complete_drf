@@ -131,20 +131,30 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+
+    'DEFAULT_THROTTLE_CLASSES': [
+    'rest_framework.throttling.AnonRateThrottle',
+    'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '5/minute',
+        'user': '10/minute'
+    }
+
 }
 
 
 from datetime import timedelta
 
 REST_KNOX = {
-  'SECURE_HASH_ALGORITHM': 'hashlib.sha512',
-  'AUTH_TOKEN_CHARACTER_LENGTH': 64,
+#   'SECURE_HASH_ALGORITHM': 'hashlib.sha512',
+#   'AUTH_TOKEN_CHARACTER_LENGTH': 64,
   'TOKEN_TTL': None, # timedelta(hours=10),
-  'USER_SERIALIZER': 'knox.serializers.UserSerializer',
-  'TOKEN_LIMIT_PER_USER': None,
-  'AUTO_REFRESH': False,
-  'AUTO_REFRESH_MAX_TTL': None,
-  'MIN_REFRESH_INTERVAL': 60,
-  'AUTH_HEADER_PREFIX': 'Token',
-  'TOKEN_MODEL': 'knox.AuthToken',
+#   'USER_SERIALIZER': 'knox.serializers.UserSerializer',
+#   'TOKEN_LIMIT_PER_USER': None,
+#   'AUTO_REFRESH': False,
+#   'AUTO_REFRESH_MAX_TTL': None,
+#   'MIN_REFRESH_INTERVAL': 60,
+#   'AUTH_HEADER_PREFIX': 'Token',
+#   'TOKEN_MODEL': 'knox.AuthToken',
 }
