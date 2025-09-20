@@ -12,7 +12,7 @@ from authentication.serializers import RegisterSerializer, UserSerializer
 
 
 class LoginView(KnoxLoginView):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,) # login olurken kullanıcı doğrulaması yapmasına gerek yok dedik. OverWrite ettik.
 
     def post(self, request, format=None):
         serializer = AuthTokenSerializer(data=request.data)
